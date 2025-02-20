@@ -1,13 +1,14 @@
-var i = [], t = [], c = [], f = {};
+let inventory = []
+let t = [], c = [], f = {};
 
 function doStuff(a, b) {
-    if (["add", "edit", "rmI"].includes(a)) {
+    if (a === "add" || a === "edit" || a === "rmI") {
         if (a === "add") {
-            var itm = { n: b[0], cat: b[1], qty: b[2], prc: b[3], unt: b[4], added: new Date(), custF: b[5] || {} };
-            i.push(itm);
+            let item = { n: b[0], category: b[1], quantity: b[2], price: b[3], unit: b[4], itemAddedDate: new Date(), custF: b[5] || {} };
+            inventory.push(item);
             if (!c.includes(b[1])) c.push(b[1]);
             t.push({ type: "add", itm });
-        } else if (a === "edit" && i[b[0]]) {
+        } else if (a === "edit" && inventory[b[0]]) {
             t.push({ type: "edit", old: i[b[0]], new: b.slice(1) });
             i[b[0]] = { ...i[b[0]], n: b[1], cat: b[2], qty: b[3], prc: b[4], unt: b[5], custF: b[6] || {} };
         } else if (a === "rmI" && i[b[0]]) {
